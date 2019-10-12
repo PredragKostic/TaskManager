@@ -27,8 +27,6 @@ class CreateProjectRequest extends FormRequest
            'title' => 'required|max:255',
            'summary' => 'required|max:255',
            'budget' => 'required|numeric',
-           'published_at' => 'required',
-           'views' => 'required',
            
         ];
     }

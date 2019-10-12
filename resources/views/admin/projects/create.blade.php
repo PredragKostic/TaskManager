@@ -1,5 +1,12 @@
 @extends('admin.layout')
 
+@section('css')
+
+<link href="{{ url('admin/css/select2.min.css') }}" rel="stylesheet" type="text/css">
+
+
+@endsection
+
 @section('content')
 
 <ol class="breadcrumb">
@@ -31,7 +38,7 @@
     
   </div>
 
-  <div class="form-group">
+    <div class="form-group">
     <label for="summary">Summary</label>
     <input type="text" class="form-control" id="summary" placeholder="Summary" name="summary" value="{{ old('summary') }}">
     @if($errors->has('summary'))
@@ -43,7 +50,7 @@
 
 <div class="form-group">
     <label for="budget">Budget</label>
-    <input type="text" class="form-control" id="budget" placeholder="Budget" name="budget" value="{{ old('budget') }}">
+    <input type="text" class="form-control" id="budget" placeholder="Budget" name="budget" value="{{ old('budget') ?? 0 }}">
     @if($errors->has('budget'))
         <span class="invalid-feedback" role="alert" style="display: block;">
             <strong>{{ $errors->first('budget') }}</strong>
@@ -56,9 +63,36 @@
     <label class="form-check-label" for="block">Is Visible</label>
   </div>
 
-    
+<div class="form-group">
+  <label for="user_id">Member</label>
+  <select name="user_id[]" id="user_id" class="form-control js-example-basic-multiple" multiple="multiple">
+    @foreach($users as $user)
+      <option value="{{ $user->id }}">{{ $user->name }}</option>
+    @endforeach
+  </select>
+  @if($errors->has('user_id'))
+      <span class="invalid-feedback" role="alert" style="display: block;">
+          <strong>{{ $errors->first('user_id') }}</strong>
+      </span>
+  @endif
+ </div>
       
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+@endsection
+
+@section('js')
+
+<script src="{{ url('admin/js/select2.min.js') }}"></script>
+
+<script>
+  // In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+    $('.js-example-basic-multiple').select2();
+     
+});
+</script>
 
 @endsection

@@ -19,7 +19,7 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->string('slug')->nullable();
             $table->string('summary')->nullable();
-            $table->bigInteger('budget')->default(0);
+            $table->bigInteger('budget')->nullable()->default(0);
             $table->boolean('is_visible')->default(true);
             $table->timestamps();
         });
