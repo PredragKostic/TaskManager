@@ -12,7 +12,7 @@ class ProjectsController extends Controller
 {
     public function index() {
         if(auth()->user()->admin){
-            $projects = Projectject::paginate(50);
+            $projects = Project::paginate(50);
         }else{
             $projects = Project::where('user_id', auth()->user()->id)->paginate(2);
         }
@@ -31,7 +31,6 @@ class ProjectsController extends Controller
     	$project->title = request('title');
     	$project->slug = request('slug') ? Str::slug(request('slug')) : Str::slug(request('title'));
     	$project->summary = request('summary');
-    	$project->content = request('content');
     	$project->budget = request('budget');
     	$project->published_at = request('published_at');
     	$project->is_visible = request()->has('is_visible');

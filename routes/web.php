@@ -24,4 +24,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('admin/users', 'UsersController')->middleware('admin');
 
+    Route::resource('admin/projects', 'ProjectsController');
+
 });

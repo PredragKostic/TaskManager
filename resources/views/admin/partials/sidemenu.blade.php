@@ -42,11 +42,11 @@
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-fw fa-folder"></i>
-        <span>Tags</span>
+        <span>Projects</span>
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <a class="dropdown-item" href="{{ url('admin/tags/create') }}">Create</a>
-        <a class="dropdown-item" href="{{ url('admin/tags') }}">View</a>
+        <a class="dropdown-item" href="{{ url('admin/projects/create') }}">Create</a>
+        <a class="dropdown-item" href="{{ url('admin/projects') }}">View</a>
         </div>
     </li>
     <li class="nav-item dropdown">
