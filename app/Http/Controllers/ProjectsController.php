@@ -27,25 +27,14 @@ class ProjectsController extends Controller
     }
 
     public function store(CreateProjectRequest $request) {
-    	
-        $project = new Project();
-    	$project->user_id = auth()->user()->id;
-    	$project->title = request('title');
-    	$project->slug = request('slug') ? Str::slug(request('slug')) : Str::slug(request('title'));
-    	$project->summary = request('summary');
-    	$project->budget = request('budget');
-    	$project->is_visible = request()->has('is_visible');
-    	
-    	$project->save();
-
-        $project->users()->sync(request('user_id'));
+        $project = Project::create(request()->all());  	
+        $project->users()->sync(request('user_ids'));
     	return redirect('admin/projects');
 
     }
 
     public function edit($id){
     	$project = Project::with('users')->findOrFail($id);
-
 
         if (!$project->canMakeChanges()){
             return redirect('admin/projects');
@@ -56,23 +45,15 @@ class ProjectsController extends Controller
     }
 
     public function update(CreateProjectRequest $request, $id) {
-    	
-    	$project = Project::findOrFail($id);
+        $project = Project::findOrFail($id);
 
         if (!$project->canMakeChanges()){
             return redirect('admin/projects');
         }
 
-    	$project->user_id = auth()->user()->id;
-    	$project->title = request('title');
-    	$project->slug = request('slug') ? Str::slug(request('slug')) : Str::slug(request('title'));
-    	$project->summary = request('summary');
-    	$project->budget = request('budget');
-    	$project->is_visible = request()->has('is_visible');
+        $project->update(request()->all());
     	
-    	$project->save();
-
-        $project->users()->sync(request('user_id'));
+        $project->users()->sync(request('user_ids'));
     	return back();
 
     }

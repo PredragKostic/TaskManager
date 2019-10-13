@@ -35,7 +35,7 @@
 
   <div class="form-group">
     <label for="slug">Slug</label>
-    <input type="slug" class="form-control" id="slug" placeholder="Slug" name="Slug" value="{{ $project->slug }}">
+    <input type="slug" class="form-control" id="slug" placeholder="Slug" name="slug" value="{{ $project->slug }}">
     
   </div>
 
@@ -61,20 +61,20 @@
 
 
   <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="is_visible" name="is_visible" @if($project->is_visible) checked="checked" @endif>
+    <input type="checkbox" class="form-check-input" value="1" id="is_visible" name="is_visible" @if($project->is_visible) checked="checked" @endif>
     <label class="form-check-label" for="block">Is Visible</label>
   </div>
 
   <div class="form-group">
-    <label for="user_id">Members</label>
-    <select name="user_id[]" id="user_id" class="form-control js-example-basic-multiple" multiple="multiple">
+    <label for="user_ids">Members</label>
+    <select name="user_ids[]" id="user_ids" class="form-control js-example-basic-multiple" multiple="multiple">
       @foreach($users as $user)
         <option value="{{ $user->id }}" @if($project->users->contains($user->id)) selected="selected" @endif>{{ $user->name }}</option>
       @endforeach
     </select>
-    @if($errors->has('user_id'))
+    @if($errors->has('user_ids'))
         <span class="invalid-feedback" role="alert" style="display: block;">
-            <strong>{{ $errors->first('user_id') }}</strong>
+            <strong>{{ $errors->first('user_ids') }}</strong>
         </span>
     @endif
   </div>

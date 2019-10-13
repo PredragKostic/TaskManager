@@ -10,7 +10,7 @@ use App\Http\Requests\CreateUserRequest;
 class UsersController extends Controller
 {
     public function index() {
-    	$users = User::paginate(1);
+    	$users = User::paginate(50);
     	return view('admin.users.index', compact('users'));
     }
 
@@ -19,14 +19,7 @@ class UsersController extends Controller
     }
 
     public function store(CreateUserRequest $request) {
-    	$user = new User();
-    	$user->name = request('name');
-    	$user->email = request('email');
-    	$user->password = bcrypt(request('password'));
-    	$user->admin = request('admin');
-    	$user->block = request()->has('block');
-    	$user->image = $user->image ? $user->getImagePath('image') : null;
-    	$user->save();
+        $user = User::create(request()->all());
     	return redirect('admin/users');
 
     }
@@ -38,17 +31,7 @@ class UsersController extends Controller
 
     public function update(CreateUserRequest $request, $id){
     	$user = User::findOrFail($id);
-    	$user->name = request('name');
-    	$user->email = request('email');
-    	$user->password = bcrypt(request('password'));
-    	$user->admin = request('admin');
-    	$user->block = request()->has('block');
-    	if(request()->has('image')){
-    		File::delete($user->image);
-    		$user->image = $user->getImagePath('image');
-
-    	}
-    	$user->save();
+        $user->update(request()->all());
     	return back();
     }
 

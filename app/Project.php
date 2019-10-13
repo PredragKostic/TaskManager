@@ -4,6 +4,7 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Project extends Model
 {
@@ -13,7 +14,11 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'slug', 'user_id', 'summary', 'budget', 'is_visible', 'published_at',
+        'title', 'slug', 'user_id', 'summary', 'budget', 'is_visible',
+    ];
+
+    protected $casts = [
+        'is_visible' => 'boolean',
     ];
 
     public function isAuthor(){
@@ -24,7 +29,12 @@ class Project extends Model
 
         return auth()->user()->isAdmin() || $this->isAuthor();
     }
-       /**
+
+    public function setSlugAttribute($value){
+        $this->attributes['slug'] = $value ? Str::slug($value) : Str::slug($this->attributes['title']);
+    }
+
+    /**
      * Get the post that belongs to user.
      */
     public function user()

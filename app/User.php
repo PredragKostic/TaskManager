@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
+use File;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'admin', 'block',
+        'name', 'email', 'password', 'image', 'admin', 'block',
     ];
 
     /**
@@ -35,15 +36,27 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'image' => 'image',
         'email_verified_at' => 'datetime',
     ];
 
-    public function getImagePath($fileName){
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
+    }
 
+    public function setImageAttribute($value){
+        File::delete($this->image);
+        $this->attributes['image'] = $this->getImagePath('image');
+    }
+
+    public function getImagePath($fileName){
         return 'storage/'. request()->file($fileName)->storeAs('users', Str::slug($this->name) . '-' . $this->id. $fileName. '.' . request()->file($fileName)->getClientOriginalExtension());
 
     }
 
+    public function getImageAttribute(){
+        return $this->attributes['image'] ? url($this->attributes['image']) : null;
+    }
    
     public function isAdmin(){
         return $this->admin == 1;

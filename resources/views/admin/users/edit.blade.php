@@ -52,7 +52,7 @@
 
   <div class="form-group">
     @if($user->image)
-      <img src="{{ url($user->image) }}" alt="{{ $user->name }}" width="200" height="auto">
+      <img src="{{ $user->image }}" alt="{{ $user->name }}" width="200" height="auto">
     @endif
     <label for="image">Image</label>
     <input type="file" class="form-control" id="image" placeholder="Image" name="image">
@@ -77,7 +77,7 @@
   </div>
 
   <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="block" name="block" @if($user->block) checked="checked" @endif>
+    <input type="checkbox" class="form-check-input" id="block" value="1" name="block" @if($user->block) checked="checked" @endif>
     <label class="form-check-label" for="block">Block</label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

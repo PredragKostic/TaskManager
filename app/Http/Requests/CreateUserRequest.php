@@ -13,6 +13,9 @@ class CreateUserRequest extends FormRequest
      */
     public function authorize()
     {
+        request()->merge([
+            'block' => request('block') ? true : false,
+        ]);
         return true;
     }
 

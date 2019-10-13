@@ -34,7 +34,7 @@
 
   <div class="form-group">
     <label for="slug">Slug</label>
-    <input type="slug" class="form-control" id="slug" placeholder="Slug" name="Slug" value="{{ old('slug') }}">
+    <input type="slug" class="form-control" id="slug" placeholder="slug" name="slug" value="{{ old('slug') }}">
     
   </div>
 
@@ -59,20 +59,20 @@
   </div>
 
   <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="is_visible" name="is_visible">
+    <input type="checkbox" class="form-check-input" id="is_visible" name="is_visible" value="1">
     <label class="form-check-label" for="block">Is Visible</label>
   </div>
 
 <div class="form-group">
-  <label for="user_id">Member</label>
-  <select name="user_id[]" id="user_id" class="form-control js-example-basic-multiple" multiple="multiple">
+  <label for="user_ids">Member</label>
+  <select name="user_ids[]" id="user_ids" class="form-control js-example-basic-multiple" multiple="multiple">
     @foreach($users as $user)
       <option value="{{ $user->id }}">{{ $user->name }}</option>
     @endforeach
   </select>
-  @if($errors->has('user_id'))
+  @if($errors->has('user_ids'))
       <span class="invalid-feedback" role="alert" style="display: block;">
-          <strong>{{ $errors->first('user_id') }}</strong>
+          <strong>{{ $errors->first('user_ids') }}</strong>
       </span>
   @endif
  </div>
