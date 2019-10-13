@@ -22,7 +22,7 @@ class TasksController extends Controller
     }
 
     public function create() {
-        $projects = Project::where('is_visible', 1)->get();
+        $projects = Project::visible()->get();
     	return view('admin.tasks.create', compact('tasks', 'projects'));
     }
     public function store(CreateTaskRequest $request) {
@@ -38,8 +38,8 @@ class TasksController extends Controller
             return redirect('admin/tasks');
         }
 
-        $users = $task->project->users()->where('block', 0)->get();
-        $projects = Project::where('is_visible', 1)->get();
+        $users = $task->project->users()->visible()->get();
+        $projects = Project::visible()->get();
     	return view('admin.tasks.edit', compact('task', 'projects', 'users'));
     }
 

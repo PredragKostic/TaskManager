@@ -21,6 +21,10 @@ class Project extends Model
         'is_visible' => 'boolean',
     ];
 
+    public function scopeVisible($query){
+        $query->where('is_visible', 1);
+    }
+
     public function isAuthor(){
         return $this->user_id == auth()->user()->id;
     }

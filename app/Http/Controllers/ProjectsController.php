@@ -22,7 +22,7 @@ class ProjectsController extends Controller
     }
 
     public function create() {
-        $users = User::where('block', 0)->get();
+        $users = User::visible()->get();
     	return view('admin.projects.create', compact('users'));
     }
 
@@ -40,7 +40,7 @@ class ProjectsController extends Controller
             return redirect('admin/projects');
         }
 
-        $users = User::where('block', 0)->get();
+        $users = User::visible()->get();
     	return view('admin.projects.edit', compact('project', 'users'));
     }
 

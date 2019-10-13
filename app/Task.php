@@ -16,6 +16,10 @@ class Task extends Model
         $this->attributes['slug'] = $value ? Str::slug($value) : Str::slug($this->attributes['title']);
     }
 
+    public function scopeVisible($query){
+        $query->where('is_visible', 1);
+    }
+
     public function isAssign(){
     	return $this->project->user_id == auth()->user()->id;
 	
