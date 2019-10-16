@@ -28,4 +28,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('admin/tasks', 'TasksController');
 
+    Route::resource('admin/comments', 'CommentsController');
+
 });

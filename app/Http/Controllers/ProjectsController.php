@@ -33,8 +33,8 @@ class ProjectsController extends Controller
 
     }
 
-    public function edit($id){
-    	$project = Project::with('users')->findOrFail($id);
+    public function edit(Project $project){
+    	$project->load('users');
 
         if (!$project->canMakeChanges()){
             return redirect('admin/projects');
@@ -44,8 +44,8 @@ class ProjectsController extends Controller
     	return view('admin.projects.edit', compact('project', 'users'));
     }
 
-    public function update(CreateProjectRequest $request, $id) {
-        $project = Project::findOrFail($id);
+    public function update(CreateProjectRequest $request, Project $project) {
+        
 
         if (!$project->canMakeChanges()){
             return redirect('admin/projects');
@@ -58,14 +58,12 @@ class ProjectsController extends Controller
 
     }
 
-    public function destroy($id){
-		$project = Project::findOrFail($id);
-
-        if (!$project->canMakeChanges()){
-            return redirect('admin/projects');
+    public function destroy(Project $project){
+        if ($project->canMakeChanges()){
+           $project->delete();
         }
 
-		$project->delete();
+		
 		return redirect('admin/projects');
     }
 }

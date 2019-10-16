@@ -59,11 +59,11 @@ class TasksController extends Controller
     public function destroy($id){
 		$task = Task::findOrFail($id);
 
-        if (!$task->canMakeChanges()){
-            return redirect('admin/tasks');
+        if ($task->canMakeChanges()){
+           $task->delete(); 
         }
 
-		$task->delete();
+		
 		return redirect('admin/tasks');
     }
 }
