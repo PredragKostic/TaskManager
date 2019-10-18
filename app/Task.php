@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class Task extends Model
 {
    protected $fillable = [
-        'title', 'slug', 'user_id', 'project_id', 'content', 'is_visible',
+        'title', 'slug', 'user_id', 'project_id', 'content', 'is_visible', 'is_done'
     ];
 
 

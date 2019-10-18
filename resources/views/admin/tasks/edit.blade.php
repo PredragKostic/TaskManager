@@ -78,6 +78,11 @@
     <input @if($task->is_visible) checked="checked" @endif type="checkbox" class="form-check-input" id="is_visible" name="is_visible" value="1">
     <label class="form-check-label" for="block">Is Visible</label>
   </div>
+
+  <div class="form-group form-check">
+    <input @if($task->is_done) checked="checked" @endif type="checkbox" class="form-check-input" id="is_done" name="is_done" value="1">
+    <label class="form-check-label" for="block">Is done</label>
+  </div>
       
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

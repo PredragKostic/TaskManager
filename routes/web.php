@@ -31,3 +31,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/comments', 'CommentsController');
 
 });
+
+Route::get('admin/practices/1', 'PracticesController@task1');

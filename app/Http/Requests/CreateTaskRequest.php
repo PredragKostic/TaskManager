@@ -16,6 +16,7 @@ class CreateTaskRequest extends FormRequest
         request()->merge([
             'user_id' => auth()->user()->id,
             'is_visible' => request('is_visible') ? true : false,
+            'is_done' => request('is_done') ? true : false,
         ]);
         return true;
     }
