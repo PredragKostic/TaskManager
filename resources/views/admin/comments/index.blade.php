@@ -33,7 +33,7 @@
                   <tr>
                     <td>{{ $comment->id }}</td>
                     
-                    <td>{{ $comment->task->title }}</td>
+                    <td><a href="{{ url('admin/comments/'. $comment->id . '/edit' ) }}">{{ $comment->task->title }}</a></td>
                     <td>{{ $comment->is_visible }}</td>
                     <td>{{ $comment->created_at }}</td>
                     <td>

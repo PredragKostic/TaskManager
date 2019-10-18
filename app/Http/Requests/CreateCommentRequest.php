@@ -13,6 +13,10 @@ class CreateCommentRequest extends FormRequest
      */
     public function authorize()
     {
+        request()->merge([
+            'user_id' => auth()->user()->id,
+            'is_visible' => request('is_visible') ? true : false,
+        ]);
         return true;
     }
 

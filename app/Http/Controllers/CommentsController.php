@@ -36,12 +36,13 @@ class CommentsController extends Controller
     public function create()
     {
         $users = User::visible()->get();
-        return view('admin.comments.create', compact('users'));
+        $tasks = Task::visible()->get();
+        return view('admin.comments.create', compact('users', 'tasks'));
     }
 
     public function store(CreateCommentRequest $request) {
         $comment =Comment::create(request()->all());   
-        $comment->users()->sync(request('user_ids'));
+       
         return redirect('admin/comments');
     }
 
@@ -54,7 +55,8 @@ class CommentsController extends Controller
         }
 
         $users = User::visible()->get();
-        return view('admin.comments.edit', compact('comments', 'users'));
+         $tasks = Task::visible()->get();
+        return view('admin.comments.edit', compact('comment', 'users', 'tasks'));
     }
 
     
@@ -67,7 +69,7 @@ class CommentsController extends Controller
 
         $comment->update(request()->all());
         
-        $comment->users()->sync(request('user_ids'));
+        
         return back();
     }
 
