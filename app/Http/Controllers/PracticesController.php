@@ -53,4 +53,41 @@ class PracticesController extends Controller
     	return Task::find(12)->comments()->orderBy('created_at', 'desc')->get();
     }
 
+    //Svi tskovi koji nemaju komentare (content i id)
+    public function task8(){
+        return Task::select('id', 'content')->doesntHave('comments')->get();
+    }
+
+    //Broj taskova koji nemaju komentare 
+    public function task9(){
+        return Task::doesntHave('comments')->count();
+    }
+
+    //Poslednjih deset taskova sa brojem komentara
+    public function task10(){
+        return Task::withCount('comments')->orderBy('created_at', 'desc')->limit(10)->get();
+    }
+
+    //Pet poslednjih komentara zajedno sa taskom i userom kome pripada
+    public function task11(){
+        return Comment::with('task','user')->orderBy('created_at', 'desc')->limit(5)->get();
+    }
+
+    //Prvih 5 taskova koji imaju minimum 3 komentara
+    public function task12(){
+        return Task::has('comments', '>=', '3')->limit(5)->get();
+    }
+
+    //Sve komentare koji u contentu imaju rec "et"
+    public function task13(){
+        return Comment::where('content', 'like', '%et%')->get();
+    }
+
+    //Sve komentare kojima contentt pocinje sa "est" ili da se zavrsava sa "quia" i is_visible = 1
+    public function task14(){
+        return Comment::where(function($query){
+                $query->where('content', 'like', 'est%')->orWhere('content', 'like', '%quia');
+        })->where('is_visible', 1)->get();
+    }
+
 }
