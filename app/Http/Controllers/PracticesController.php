@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Comment;
 use Carbon\Carbon;
 use App\Task;
+use App\Project;
+use App\User;
 
 class PracticesController extends Controller
 {
@@ -42,8 +44,11 @@ class PracticesController extends Controller
     	$start = Carbon::now()->startOfDay()->subDays(1)->format('Y-m-d H:m:s');
     	$end = Carbon::now()->endOfDay()->subDays(1)->format('Y-m-d H:m:s');
 
-    	return Comment::where('created_at', '>', $start)->where('created_at', '<', $end)
-    		->orderBy('created_at', 'desc')->limit(10)->get();
+    	//return Comment::where('created_at', '>', $start)->where('created_at', '<', $end)
+    		//->orderBy('created_at', 'desc')->limit(10)->get();
+
+        return Comment::whereBetween('created_at',[$start, $end])
+            ->orderBy('created_at', 'desc')->limit(10)->get();
     }
 
     //Svi komentri pocevsi od najnovijeg sa task id = 12
@@ -53,7 +58,7 @@ class PracticesController extends Controller
     	return Task::find(12)->comments()->orderBy('created_at', 'desc')->get();
     }
 
-    //Svi tskovi koji nemaju komentare (content i id)
+    //Svi taskovi koji nemaju komentare (content i id)
     public function task8(){
         return Task::select('id', 'content')->doesntHave('comments')->get();
     }
@@ -89,5 +94,30 @@ class PracticesController extends Controller
                 $query->where('content', 'like', 'est%')->orWhere('content', 'like', '%quia');
         })->where('is_visible', 1)->get();
     }
+
+    //Za korisnika id = 3 sve aktivne projekte gde je member zajedno sa brojem taskova po svakom projektu
+    public function task15(){
+        return User::find(3)->projectsPivot()->visible()->withCount('tasks')->get();
+
+    }
+
+    //Daj mi sve korisnike koji su admini na barem 2 projekta
+    public function task16(){
+        return User::has('projects', '>', 1)->get();
+    }
+
+    //Daj mi sve usere koji su memberi na barem 7 projekta
+    public function task17(){
+        return User::has('projectsPivot', '>', 6)->get();
+    }
+
+    //Sve taskove koji imaju barem 3 vidjiva komentara i koji nisu uradjeni
+    public function task18(){
+        return Task::whereHas('comments', function($query){
+            $query->visible();
+        },'>', 2)->where('is_done', 0)->get();
+    }
+
+    //
 
 }

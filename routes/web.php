@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('admin/comments', 'CommentsController');
 
+    Route::resource('admin/times', 'TimesController');
+
 });
 
 Route::get('admin/practices/1', 'PracticesController@task1');
@@ -46,6 +48,10 @@ Route::get('admin/practices/11', 'PracticesController@task11');
 Route::get('admin/practices/12', 'PracticesController@task12');
 Route::get('admin/practices/13', 'PracticesController@task13');
 Route::get('admin/practices/14', 'PracticesController@task14');
+Route::get('admin/practices/15', 'PracticesController@task15');
+Route::get('admin/practices/16', 'PracticesController@task16');
+Route::get('admin/practices/17', 'PracticesController@task17');
+Route::get('admin/practices/18', 'PracticesController@task18');
 
 
 

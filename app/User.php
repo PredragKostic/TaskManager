@@ -70,6 +70,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Project');
     }
 
+    public function projectsPivot(){
+        return $this->belongsToMany('App\Project');
+    }
+
     public function comments(){
         return $this->hasMany('App\Comment');
     }

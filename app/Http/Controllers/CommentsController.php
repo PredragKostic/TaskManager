@@ -60,7 +60,7 @@ class CommentsController extends Controller
     }
 
     
-    public function update(Request $request, Comment $comment)
+    public function update(CreateCommentRequest $request, Comment $comment)
     {
     
         if (!$comment->canMakeChanges()){
