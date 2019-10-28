@@ -58,6 +58,17 @@
         <a class="dropdown-item" href="{{ url('admin/comments') }}">View</a>
         </div>
     </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Times</span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <a class="dropdown-item" href="{{ url('admin/times/create') }}">Create</a>
+        <a class="dropdown-item" href="{{ url('admin/times') }}">View</a>
+        </div>
+    </li>
     
     
   </ul>
