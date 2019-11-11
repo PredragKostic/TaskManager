@@ -5,6 +5,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use DB;
 
 class Project extends Model
 {
@@ -38,6 +39,17 @@ class Project extends Model
         $this->attributes['slug'] = $value ? Str::slug($value) : Str::slug($this->attributes['title']);
     }
 
+    public function getHours(){
+        $seconds =  Self::select(DB::raw('sum(TIME_TO_SEC(times.amount)) as amount_sum'))
+            ->join('tasks', 'projects.id', '=', 'tasks.project_id')
+            ->join('times', 'tasks.id', '=', 'times.task_id')
+            ->where('projects.id', $this->id)
+            ->groupBy('projects.id')
+            ->first();
+
+            return round($seconds->amount_sum / 3600);
+    }
+
     /**
      * Get the post that belongs to user.
      */
@@ -49,6 +61,16 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany('App\Task');
+    }
+
+    public function solvedTasks()
+    {
+        return $this->hasMany('App\Task')->where('is_done', 1);
+    }
+
+    public function unSolvedTasks()
+    {
+        return $this->hasMany('App\Task')->where('is_done', 0);
     }
 
     public function users(){

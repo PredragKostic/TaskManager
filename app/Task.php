@@ -43,4 +43,8 @@ class Task extends Model
     public function comments(){
         return $this->hasMany('App\Comment');
     }
+
+    public function times(){
+        return $this->hasMany('App\Time');
+    }
 }

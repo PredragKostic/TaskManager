@@ -8,7 +8,7 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="tables.html">
+      <a class="nav-link" href="{{ url('admin/my-tasks') }}">
         <i class="fas fa-fw fa-table"></i>
         <span>My tasks</span></a>
     </li>

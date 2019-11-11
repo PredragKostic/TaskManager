@@ -33,6 +33,14 @@ class ProjectsController extends Controller
 
     }
 
+    public function show($id){
+       $project = Project::withCount('unSolvedTasks', 'solvedTasks', 'users')->firstOrFail();
+
+       $hours = $project->getHours();
+
+        return view('admin.projects.show', compact('project', 'hours'));
+    }
+
     public function edit(Project $project){
     	$project->load('users');
 

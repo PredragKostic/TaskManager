@@ -15,7 +15,7 @@ class TasksController extends Controller
         if(auth()->user()->isAdmin()){
             $tasks = Task::with('project')->paginate(50);
         }else{
-            $tasks = Project::with('project')->where('user_id', auth()->user()->id)->paginate(50);
+            $tasks = Task::with('project')->where('user_id', auth()->user()->id)->paginate(50);
         }
     	
     	return view('admin.tasks.index', compact('tasks'));

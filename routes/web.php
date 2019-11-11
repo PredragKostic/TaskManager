@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('admin/times', 'TimesController');
 
+    Route::get('admin/my-tasks', 'MyTasksController@index');
+
 });
 
 Route::get('admin/practices/1', 'PracticesController@task1');
